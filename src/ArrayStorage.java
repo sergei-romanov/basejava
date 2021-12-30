@@ -9,6 +9,7 @@ public class ArrayStorage {
     private int position = 0;
 
     void clear() {
+        Arrays.fill(storage, 0, position,null);
         position = 0;
     }
 
@@ -29,7 +30,8 @@ public class ArrayStorage {
         for (int i = 0; i < position; i++) {
             if (uuid.equalsIgnoreCase(storage[i].uuid)) {
                 System.arraycopy(storage, i + 1, storage, i, position - i - 1);
-                position--;
+                storage[--position] = null;
+                break;
             }
         }
     }
