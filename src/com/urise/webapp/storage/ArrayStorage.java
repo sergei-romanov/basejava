@@ -7,11 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage implements Storage {
-
-    private static final int STORAGE_LIMIT = 10000;
-    private final Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int size = 0;
+public class ArrayStorage extends AbstractArrayStorage {
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -19,7 +15,7 @@ public class ArrayStorage implements Storage {
     }
 
     public void update(Resume r) {
-        int id = getId(r.getUuid());
+        int id = getIndex(r.getUuid());
         if (id == -1) {
             System.out.println("Resume " + r.getUuid() + " already exist");
             return;
@@ -32,24 +28,15 @@ public class ArrayStorage implements Storage {
             System.out.println("Storage overflow");
             return;
         }
-        if (getId(r.getUuid()) == -1) {
+        if (getIndex(r.getUuid()) == -1) {
             System.out.println("Resume " + r.getUuid() + " already exist");
             return;
         }
         storage[size++] = r;
     }
 
-    public Resume get(String uuid) {
-        int id = getId(uuid);
-        if (id == -1) {
-            System.out.println("Resume " + uuid + " already exist");
-            return null;
-        }
-        return storage[id];
-    }
-
     public void delete(String uuid) {
-        int id = getId(uuid);
+        int id = getIndex(uuid);
         if (id == -1) {
             System.out.println("Resume " + uuid + " already exist");
             return;
@@ -58,10 +45,6 @@ public class ArrayStorage implements Storage {
         storage[--size] = null;
     }
 
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
@@ -70,7 +53,7 @@ public class ArrayStorage implements Storage {
         return size;
     }
 
-    private int getId(String uuid) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equalsIgnoreCase(storage[i].getUuid())) {
                 return i;
