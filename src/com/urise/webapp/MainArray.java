@@ -1,3 +1,5 @@
+package com.urise.webapp;
+
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ArrayStorage;
 import com.urise.webapp.storage.Storage;
@@ -7,8 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Interactive test for ArrayStorage implementation
- * (just run, no need to understand)
+ * Test for ru.javawebinar.basejava.storage.ArrayStorage
  */
 public class MainArray {
     private final static Storage ARRAY_STORAGE = new ArrayStorage();
@@ -35,14 +36,12 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "update":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     ARRAY_STORAGE.update(r);
                     printAll();
                     break;
