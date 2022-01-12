@@ -5,6 +5,7 @@ import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
+
     protected abstract Object getSearchKey(String uuid);
 
     protected abstract void doUpdate(Resume r, Object searchKey);
