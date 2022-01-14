@@ -30,6 +30,10 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public String getUuid() {
         return uuid;
     }
@@ -56,7 +60,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        var arO = fullName.split(" ");
+        var arO = o.getFullName().split(" ");
         var lastNameO = arO[0];
         var firstNameO = arO[1];
         var arThis = this.getFullName().split(" ");
@@ -69,7 +73,6 @@ public class Resume implements Comparable<Resume> {
             if (firstNameThis.compareTo(firstNameO) >= 0) {
                 return 1;
             }
-        } else {
             return -1;
         }
         return -1;

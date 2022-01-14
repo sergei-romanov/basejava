@@ -2,10 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MapUuidStorage extends AbstractStorage {
     //fullName
@@ -13,9 +10,9 @@ public class MapUuidStorage extends AbstractStorage {
 
     @Override
     protected String getSearchKey(String uuid) {
-        for (Resume r : map.values()) {
-            if (uuid.equals(r.getUuid())) {
-                return r.getFullName();
+        for (String s : map.keySet()) {
+            if (uuid.equals(map.get(s).getUuid())) {
+                return map.get(s).getFullName();
             }
         }
         return null;
@@ -23,7 +20,7 @@ public class MapUuidStorage extends AbstractStorage {
 
     @Override
     protected void doUpdate(Resume r, Object searchKey) {
-        map.put((String) searchKey, r);
+        map.put(r.getFullName(), r);
     }
 
     @Override
@@ -33,7 +30,7 @@ public class MapUuidStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Resume r, Object searchKey) {
-        map.put((String) searchKey, r);
+        map.put(r.getFullName(), r);
     }
 
     @Override
@@ -53,13 +50,30 @@ public class MapUuidStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-        var result = map.values().stream().toList();
-        Collections.sort(result);
-        return result;
+        var resul = new ArrayList<Resume>();
+        for (String s : map.keySet()) {
+            resul.add(map.get(s));
+        }
+        Collections.sort(resul);
+        return resul;
     }
 
     @Override
     public int size() {
-        return map.size();
+        return map.keySet().size();
+    }
+
+    public static void main(String[] args) {
+        var RESUME_1 = new Resume("UUID_1");
+        RESUME_1.setFullName("Ar Ser");
+        var RESUME_2 = new Resume("UUID_2");
+        RESUME_2.setFullName("Bur Gamer");
+        var RESUME_3 = new Resume("UUID_3");
+        RESUME_3.setFullName("Salt Frank");
+        MapUuidStorage mp = new MapUuidStorage();
+        mp.save(RESUME_1);
+        mp.save(RESUME_2);
+        mp.save(RESUME_3);
+        System.out.println(mp.getAllSorted());
     }
 }

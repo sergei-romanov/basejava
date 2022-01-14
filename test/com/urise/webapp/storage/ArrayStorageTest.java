@@ -4,7 +4,11 @@ import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses({MapUuidStorageTest.class, ListStorageTest.class, SortedArrayStorageTest.class})
 public class ArrayStorageTest extends AbstractStorageTest {
 
     public ArrayStorageTest() {
