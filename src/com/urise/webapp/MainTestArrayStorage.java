@@ -4,9 +4,6 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ArrayStorage;
 
 
-/**
- * Test ru.javawebinar.basejava.storage.ArrayStorage
- */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
@@ -35,7 +32,7 @@ public class MainTestArrayStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : ARRAY_STORAGE.getAll()) {
+        for (Resume r : ARRAY_STORAGE.getAllSorted()) {
             System.out.println(r);
         }
     }
