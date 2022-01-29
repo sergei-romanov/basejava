@@ -29,5 +29,23 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println("project: ");
+
+        getNameAllFiles(new File("src/"));
+    }
+
+    static void getNameAllFiles(File name) {
+        var list = name.listFiles();
+        if (list != null) {
+            for (File file : list) {
+                if (file.isDirectory()) {
+                    System.out.println("Directory: " + file.getAbsolutePath());
+                    getNameAllFiles(file);
+                } else {
+                    System.out.println("File: " + file.getAbsolutePath());
+                }
+            }
+        }
     }
 }
