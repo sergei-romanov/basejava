@@ -14,9 +14,9 @@ import java.util.stream.Stream;
 
 public class PathStorage extends AbstractStorage<Path> {
     private Path directory;
-    private Strata serialize;
+    private Strategy serialize;
 
-    protected PathStorage(String dir, Strata serialize) {
+    protected PathStorage(String dir, Strategy serialize) {
         directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
@@ -36,13 +36,11 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        List<Path> list;
         try {
-            list = Files.list(directory).toList();
+            return (int) Files.list(directory).count();
         } catch (IOException e) {
-            throw new StorageException("Directory read error", null);
+            throw new StorageException("Directory read error", null, e);
         }
-        return list.size();
     }
 
     @Override
@@ -99,7 +97,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     private Stream<Path> getFileStream() {
         try {
-           return Files.list(directory);
+            return Files.list(directory);
         } catch (IOException e) {
             throw new StorageException("no files", null);
         }

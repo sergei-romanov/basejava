@@ -10,9 +10,9 @@ import java.util.Objects;
 
 public class FileStorage extends AbstractStorage<File> {
     private File directory;
-    private Strata serialize;
+    private Strategy serialize;
 
-    protected FileStorage(File directory, Strata serialize) {
+    protected FileStorage(File directory, Strategy serialize) {
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
