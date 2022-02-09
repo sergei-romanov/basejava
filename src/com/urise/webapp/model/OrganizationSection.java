@@ -12,7 +12,8 @@ public class OrganizationSection extends Section {
 
     private List<Organization> organizations;
 
-    public OrganizationSection() {}
+    public OrganizationSection() {
+    }
 
     public OrganizationSection(Organization... organizations) {
         this(Arrays.asList(organizations));
@@ -31,11 +32,8 @@ public class OrganizationSection extends Section {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OrganizationSection that = (OrganizationSection) o;
-
         return organizations.equals(that.organizations);
-
     }
 
     @Override
