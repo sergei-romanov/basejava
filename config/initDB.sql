@@ -1,3 +1,7 @@
+drop table IF EXISTS section;
+drop table IF EXISTS contact;
+drop table IF EXISTS resume;
+
 create table resume
 (
     uuid      char(36) not null constraint resume_pk primary key,
